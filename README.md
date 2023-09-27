@@ -1,4 +1,4 @@
-# wpa_supplicant
+# wpa_supplicant3R
 Bash script to automate GUI-less, access-point configuration.
 
 Create a local copy of the script.
