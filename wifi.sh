@@ -59,16 +59,16 @@ while [ $SECONDS -lt $end_time ]; do
     if iwconfig $interface | grep -q "$ssid"; then
         clear
         echo "Successfully associated with SSID: $ssid"
-        sudo dhclient $interface
         associated=true
         break  # Exit the loop when associated
     fi
-    sleep 10  # Check every 1 second
+    sleep 10 # check every $ second(s)
     echo "Just a moment ..."
 done
 
 if $associated; then
     # Run dhclient only if the SSID is successfully associated
+    sudo dhclient $interface
     sleep 10
     ifconfig $interface | grep "inet " | cut -d " " -f10
 else
