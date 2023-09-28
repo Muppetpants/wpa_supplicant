@@ -1,4 +1,4 @@
-# wpa_supplicant3R
+#  automate wpa_supplicant build
 Bash script to automate GUI-less, access-point configuration.
 
 This script will prompt for user input on SSID, Passphrase, and wireless interfaces.
