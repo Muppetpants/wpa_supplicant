@@ -18,10 +18,9 @@ read -p "What is the passphrase for $ssid: " passphrase
 read -p "What wireless interface would you like to use?: " interface
 clear
 
-echo "The SSID in which you are trying to connect to is: $ssid"
-echo "The wireless interface you chose: $interface"
-echo "If this is not correct, please hit (Ctrl+C) now, and start over."
-sleep 5
+echo "SSID: $ssid"
+echo "Wireless Interface: $interface"
+read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
 clear
 
 echo "Killing previous WPA_SUPPLICANT processes."
