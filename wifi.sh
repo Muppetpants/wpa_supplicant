@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-conf="wifi.conf"
+conf="wpa_supplicant.conf"
 supplicant="/etc/wpa_supplicant/$conf"
 
 read -p "What is the name of the access point you'd like to connect to?: " ssid
@@ -20,7 +20,8 @@ clear
 
 echo "SSID: $ssid"
 echo "Wireless Interface: $interface"
-read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
+#read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
+sleep 5
 clear
 
 echo "Killing previous WPA_SUPPLICANT processes."
@@ -35,7 +36,7 @@ clear
 
 # Runs the wpa_passphrase command to build a conf file
 echo "Building conf file"
-wpa_passphrase $ssid $passphrase > $conf
+wpa_passphrase "$ssid" "$passphrase" > $conf
 clear
 
 # Moves the conf file into /etc/wpa_supplicant
@@ -48,10 +49,28 @@ echo "Starting wpa_supplicant"
 sudo wpa_supplicant -B -i $interface -c $supplicant
 clear
 
-# Waits a set amount of time before requesting an IP on said network
-echo "Waiting until network is associated, then requesting an IP."
-sleep 30
-sudo dhclient $interface
-clear
-iwconfig $interface | grep $ssid
-ifconfig $interface | grep "inet " | cut -d " " -f10
+
+# Monitor iwconfig for a minute
+echo "Monitoring iwconfig for a minute to check SSID association..."
+end_time=$((SECONDS + 60))  # Set a one-minute timer
+associated=false
+
+while [ $SECONDS -lt $end_time ]; do
+    if iwconfig $interface | grep -q "$ssid"; then
+        clear
+        echo "Successfully associated with SSID: $ssid"
+        sudo dhclient $interface
+        associated=true
+        break  # Exit the loop when associated
+    fi
+    sleep 10  # Check every 1 second
+    echo "Just a moment ..."
+done
+
+if $associated; then
+    # Run dhclient only if the SSID is successfully associated
+    sleep 10
+    ifconfig $interface | grep "inet " | cut -d " " -f10
+else
+    echo "Failed to associate with SSID: $ssid"
+fi
