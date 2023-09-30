@@ -11,3 +11,10 @@ Make the script executable
 
 Run the script
 ```sudo ./wifi.sh```
+
+
+User input for ```SSID```
+User input for ```Passphrase```
+User input for ```WirelessInterface```
+```Press enter if settings are correct. ```
+
