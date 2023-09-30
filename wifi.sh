@@ -21,7 +21,6 @@ clear
 echo "SSID: $ssid"
 echo "Wireless Interface: $interface"
 read -n 1 -r -s -p $'Press enter to continue if the values above are correct. Otherwise "Ctrl + c" to reenter...\n'
-sleep 5
 clear
 
 echo "Killing previous WPA_SUPPLICANT processes."
@@ -62,7 +61,7 @@ while [ $SECONDS -lt $end_time ]; do
         associated=true
         break  # Exit the loop when associated
     fi
-    sleep 10  # Check every second(s)
+    sleep 1  # Check every second(s)
     echo "Just a moment ..."
 done
 
