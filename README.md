@@ -14,7 +14,10 @@ Run the script
 
 
 User input for ```SSID```
+
 User input for ```Passphrase```
+
 User input for ```WirelessInterface```
+
 ```Press enter if settings are correct. ```
 
