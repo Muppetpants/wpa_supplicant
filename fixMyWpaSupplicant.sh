@@ -37,7 +37,7 @@ echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > $conf
 echo "update_config=1" >> $conf
 echo "country=US" >> $conf
 echo "" >> $conf
-wpa_passphrase "$ssid" "$passphrase" > $conf
+wpa_passphrase "$ssid" "$passphrase" >> $conf
 clear
 
 # Moves the conf file into /etc/wpa_supplicant
