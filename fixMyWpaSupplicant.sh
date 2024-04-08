@@ -47,6 +47,6 @@ clear
 
 # Runs the supplicant command in the background based of user input for wireless card
 echo " "
-echo "Start wpa_supplicant with 'sudo wpa_supplicant -B -i $interface -c $supplicant'. Confirm reconnection after reboot"
+echo "Start wpa_supplicant with 'sudo wpa_supplicant -B -i <interface> -c <supplicant.conf>'. Confirm reconnection after reboot"
 
 
